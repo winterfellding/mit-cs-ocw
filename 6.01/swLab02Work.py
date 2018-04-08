@@ -144,3 +144,36 @@ runTestsFW()
 #Test2: [None, None, 'h', 'i', None, 'h', 'o']
 #Test3: [None, None, None, 'h', 'i', None, None, 'h', 'o', None, None, None, None, None, None, None, None, None, 'h', 'a', None, None, None, None, None, None]
 #Test4: ['h', 'i', None, 'h', 'o']
+
+class Hammock:
+
+    def __init__(self):
+        self.inHammock = 0
+        self.lastTry = ''
+    
+    def sitDown(self, name):
+        if self.inHammock == 0 or name == self.lastTry:
+            self.inHammock += 1
+            return "welcome"
+        else:
+            self.lastTry = name
+            return "sorry, no room"
+
+    def leave(self):
+        if self.inHammock > 0:
+            self.inHammock -= 1
+        return self.inHammock
+
+h = Hammock()
+print(h.sitDown("George"))
+print(h.sitDown("Bobby"))
+print(h.sitDown("Bobby"))
+print(h.leave())
+print(h.leave())
+print(h.leave())
+print(h.sitDown("Martha"))
+print(h.sitDown("Wilhelm"))
+print(h.sitDown("Klaus"))
+print(h.sitDown('Wilhelm'))
+print(h.leave())
+
