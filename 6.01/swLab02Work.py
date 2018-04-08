@@ -7,11 +7,10 @@ import lib601.sm as sm
 class Delay2Machine(sm.SM):
     def __init__(self, val0, val1):
         self.startState = (val0, val1) 
-        self.start() 
 
     def getNextValues(self, state, inp):
         
-        return state[0]
+        return (state[1], inp), state[0]
 
 def runTestsDelay():
     print('Test1:', Delay2Machine(100, 10).transduce([1,0,2,0,0,3,0,0,0,4]))
@@ -48,11 +47,17 @@ def f(x):  # func
 
 
 class CommentsSM(sm.SM):
-    startState = ''  # fix this
+    startState = 0  # fix this
 
     def getNextValues(self, state, inp):
-        # your code here
-        pass
+        if state == 1 and inp != '\n':
+            return 1, inp
+        elif state == 1 and inp == '\n':
+            return 0, None
+        elif state == 0 and inp == '#':
+            return 1, inp
+        else:
+            return state, None
  
 
 def runTestsComm():
@@ -66,6 +71,7 @@ def runTestsComm():
     [m.getNextValues(m.state, i) for i in ' #foo #bar']
     print('Test3:', [c for c in [m.step(i) for i in x2] if not c==None])
 
+runTestsComm()
 # execute runTestsComm() to carry out the testing, you should get:
 
 #Test1: ['#', ' ', 'f', 'u', 'n', 'c', '#', ' ', 't', 'e', 's', 't', '#', ' ', 'c', 'o', 'm', 'm', 'e', 'n', 't']
@@ -99,8 +105,27 @@ test3  = '''
 # test3 ='\n\n hi \nho ho ho\n\n ha ha ha'
 
 class FirstWordSM(sm.SM):
-    # Your code here
-    pass
+    
+    startState = 0
+ 
+    def getNextValues(self, state, inp):
+        if state == 0:
+            if inp != '\n' and inp != ' ':
+                return 1, inp
+            else:
+                return 0, None
+        elif state == 1:
+            if inp == '\n':
+                return 0, None
+            elif inp == ' ':
+                return 2, None
+            else:
+                return 1, inp
+        else:
+            if inp == '\n':
+                return 0, None
+            else:
+                return 2, None
 
 def runTestsFW():
     m = FirstWordSM()
@@ -111,6 +136,8 @@ def runTestsFW():
     m.start()
     [m.getNextValues(m.state, i) for i in '\nFoo ']
     print('Test 4', [m.step(i) for i in test1])
+
+runTestsFW()
 
 # execute runTestsFW() to carry out the testing, you should get:
 #Test1: ['h', 'i', None, 'h', 'o']
