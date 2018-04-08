@@ -50,3 +50,9 @@ def hanoi(n, A, B, C):
         hanoi(n - 1, C, B, A)
 hanoi(2, 'A', 'B', 'C')
 ```
+
+### State Machine
+
+finite-state machine    => state machine
+infinite-state machine  => stack machine
+Computability_theory_(computer_science) wikipedia
