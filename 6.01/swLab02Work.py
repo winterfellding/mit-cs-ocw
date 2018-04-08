@@ -10,7 +10,7 @@ class Delay2Machine(sm.SM):
         self.start() 
 
     def getNextValues(self, state, inp):
-         
+        
         return state[0]
 
 def runTestsDelay():
