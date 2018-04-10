@@ -1,3 +1,10 @@
+"""
+find peak 1d version
+
+ary: the 1d array
+lo: the starting index to find a peak
+hi: the ending index to find a peak
+"""
 def find_peak_1d(ary, lo, hi):
     mid = (hi - lo) // 2
     if ary[mid] < ary[mid - 1]:
@@ -10,8 +17,16 @@ def find_peak_1d(ary, lo, hi):
 test_ary = [3, 4, 1, 3, 5, 7, 9, 3, 13, 14]
 print(find_peak_1d(test_ary, 0, len(test_ary) - 1))
 
-def find_peak_2d(ary, r, start_col, col):
-    mid = (col + start_col) // 2
+"""
+find peak 2d version
+
+ary: the 2d array
+r: row count
+start_col: column range start
+end_col: column range end
+"""
+def find_peak_2d(ary, r, start_col, end_col):
+    mid = (end_col + start_col) // 2
     max_num, max_idx = 0, 0
     for i in range(r):
         if max_num < ary[i][mid]:
@@ -19,8 +34,8 @@ def find_peak_2d(ary, r, start_col, col):
             max_idx = i
     if mid != 0 and ary[max_idx][mid] < ary[max_idx][mid - 1] :
         return find_peak_2d(ary, r, start_col, mid - 1)
-    elif mid != col and ary[max_idx][mid] < ary[max_idx][mid + 1]:
-        return find_peak_2d(ary, r, mid + 1, col)
+    elif mid != end_col and ary[max_idx][mid] < ary[max_idx][mid + 1]:
+        return find_peak_2d(ary, r, mid + 1, end_col)
     else:
         return mid, max_idx
 
