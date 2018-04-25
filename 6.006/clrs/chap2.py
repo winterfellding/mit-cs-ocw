@@ -68,3 +68,45 @@ ary = [1, 1, 1, 1]
 ary2 = [0, 0, 0, 1]
 print(add_two_bi_bit_arry(ary, ary2))
 
+"""
+merge sort
+"""
+def merge_sort(ary, l, r):
+    if r > l:
+        m = (l + r) // 2
+        merge_sort(ary, l, m)
+        merge_sort(ary, m + 1, r)
+        merge(ary, l, m, r)
+
+def merge(ary, l, m, r):
+    L = [0] * (m - l + 1)
+    R = [0] * (r- m)
+ 
+    for i in range(0 , len(L)):
+        L[i] = ary[l + i]
+    for j in range(0 , len(R)):
+        R[j] = ary[m + 1 + j]
+        
+    l_i, r_i, ary_i = 0, 0, l
+    while l_i < len(L) and r_i < len(R):
+        if L[l_i] <= R[r_i]:
+            ary[ary_i] = L[l_i]
+            l_i += 1
+        else:
+            ary[ary_i] = R[r_i]
+            r_i += 1
+        ary_i += 1
+
+    while l_i < len(L):
+        ary[ary_i] = L[l_i]
+        l_i += 1
+        ary_i += 1
+
+    while r_i < len(R):
+        ary[ary_i] = R[r_i]
+        r_i += 1
+        ary_i += 1
+
+ary = [12, 11, 13, 5, 6, 7]
+merge_sort(ary, 0, len(ary) - 1)
+print(ary)       
